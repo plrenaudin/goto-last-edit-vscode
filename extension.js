@@ -9,15 +9,19 @@ var lastEditTime;
 function _onEvent(e) {
     var lastChangeTooRecent = Date.now() - lastEditTime < editGroupTimeThreshold;
     var documentHasChanged = e.document.isDirty || e.document.isUntitled;
-    if (!lastChangeTooRecent && documentHasChanged) {
+    var isOnSameLine = lastEditLocation && getEventPosition(e).range.end.line === lastEditLocation.position.end.line;
+    if (!lastChangeTooRecent && documentHasChanged && !isOnSameLine) {
         saveChangePosition(e);
     }
 }
 
+function getEventPosition(event) {
+    return event.contentChanges[event.contentChanges.length - 1];
+}
+
 function saveChangePosition(event) {
-    var changePosition = event.contentChanges[event.contentChanges.length - 1];
-    var change = {
-        position: changePosition.range,
+    lastEditLocation = {
+        position: getEventPosition(event).range,
         file: event.document.uri.path
     };
 
@@ -29,7 +33,7 @@ function saveChangePosition(event) {
     if (history.length >= historyMaxSize) {
         history.splice(0, history.length - historyMaxSize + 1);
     }
-    history.push(change);
+    history.push(lastEditLocation);
     return historyPosition++;
 }
 
