@@ -4,6 +4,14 @@
     "description": "Goes backward and forward in the last edited location history",
     "version": "0.0.1",
     "publisher": "plrenaudin",
+    "homepage": "https://github.com/plrenaudin/goto-last-edit-vscode/blob/master/README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plrenaudin/goto-last-edit-vscode"
+    },
+    "bugs": {
+        "url": "https://github.com/plrenaudin/goto-last-edit-vscode/issues"
+    },
     "engines": {
         "vscode": "^1.0.0"
     },
@@ -31,7 +39,8 @@
                 "key": "ctrl+-",
                 "mac": "cmd+-",
                 "when": "editorTextFocus"
-            },{
+            },
+            {
                 "command": "extension.goForward",
                 "key": "ctrl+=",
                 "mac": "cmd+=",
