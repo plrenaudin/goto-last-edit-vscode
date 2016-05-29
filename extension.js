@@ -8,9 +8,8 @@ var lastEditTime;
 
 function _onEvent(e) {
     var lastChangeTooRecent = Date.now() - lastEditTime < editGroupTimeThreshold;
-    var documentHasChanged = e.document.isDirty || e.document.isUntitled;
     var isOnSameLine = lastEditLocation && getEventPosition(e).range.end.line === lastEditLocation.position.end.line;
-    if (!lastChangeTooRecent && documentHasChanged && !isOnSameLine) {
+    if (!lastChangeTooRecent && !isOnSameLine) {
         saveChangePosition(e);
     }
 }
@@ -27,14 +26,14 @@ function saveChangePosition(event) {
 
     lastEditTime = Date.now();
 
-    if (historyPosition < history.length) {
-        history.splice(historyPosition, history.length - historyPosition);
+    if (historyPosition < history.length - 1) {
+        history.splice(historyPosition);
     }
     if (history.length >= historyMaxSize) {
         history.splice(0, history.length - historyMaxSize + 1);
     }
     history.push(lastEditLocation);
-    return historyPosition++;
+    historyPosition++;
 }
 
 function scrollToLocation(editor, edit) {
@@ -55,6 +54,10 @@ function navigate(goingBack) {
                     .then(vscode.window.showTextDocument)
                     .then(function (editor) { scrollToLocation(editor, lastEditLocation); });
             }
+        } else if (!goingBack && historyPosition === history.length - 1) {
+            // the max historyPosition should be history.length
+            // so when user goes back it points to the last element and not the one before last
+            historyPosition++;
         }
     }
 }
