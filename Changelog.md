@@ -1,3 +1,6 @@
+# 0.2.0
+Now works with untitled files
+
 # 0.1.3
 Fix behaviour on forward in history
 

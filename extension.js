@@ -46,9 +46,14 @@ function navigate(goingBack) {
         lastEditLocation = goingBack ? history[historyPosition - 1] : history[historyPosition + 1];
         if (lastEditLocation) {
             historyPosition = goingBack ? historyPosition - 1 : historyPosition + 1;
-            var currentEditor = vscode.window.activeTextEditor;
-            if (currentEditor && currentEditor.document.fileName === lastEditLocation.file) {
-                scrollToLocation(currentEditor, lastEditLocation);
+
+            var lastEditEditorFound = vscode.workspace.textDocuments.find(function (item) {
+                return item.fileName === lastEditLocation.file;
+            });
+
+            if (lastEditEditorFound) {
+                vscode.window.showTextDocument(lastEditEditorFound)
+                    .then(function (editor) { scrollToLocation(editor, lastEditLocation); });
             } else {
                 vscode.workspace.openTextDocument(lastEditLocation.file)
                     .then(vscode.window.showTextDocument)
