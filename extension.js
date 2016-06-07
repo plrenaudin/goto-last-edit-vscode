@@ -30,7 +30,9 @@ function saveChangePosition(event) {
         history.splice(historyPosition);
     }
     if (history.length >= historyMaxSize) {
-        history.splice(0, history.length - historyMaxSize + 1);
+        var elementsToRemove = history.length - historyMaxSize + 1;
+        history.splice(0, elementsToRemove);
+        historyPosition -= elementsToRemove;
     }
     history.push(lastEditLocation);
     historyPosition++;
