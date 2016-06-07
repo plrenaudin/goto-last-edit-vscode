@@ -1,3 +1,6 @@
+# 0.2.1
+Fix issue when history is full with historyPosition
+
 # 0.2.0
 Now works with untitled files
 
