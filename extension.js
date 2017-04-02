@@ -9,7 +9,8 @@ var lastEditTime;
 function _onEvent(e) {
     var lastChangeTooRecent = Date.now() - lastEditTime < editGroupTimeThreshold;
     var isOnSameLine = lastEditLocation && getEventPosition(e).range.end.line === lastEditLocation.position.end.line;
-    if (!lastChangeTooRecent && !isOnSameLine) {
+    var isGitRelatedChange = e.document.uri._scheme === "git"
+    if (!lastChangeTooRecent && !isOnSameLine && !isGitRelatedChange) {
         saveChangePosition(e);
     }
 }
