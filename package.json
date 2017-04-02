@@ -2,7 +2,7 @@
     "name": "gotolastedit",
     "displayName": "Goto Last Edit",
     "description": "Goes backward and forward in the last edited location history",
-    "version": "0.2.0",
+    "version": "0.4.0",
     "publisher": "plrenaudin",
     "homepage": "https://github.com/plrenaudin/goto-last-edit-vscode/blob/master/README.md",
     "repository": {
