@@ -24,19 +24,13 @@ function saveChangePosition(event) {
         position: getEventPosition(event).range,
         file: event.document.uri.path
     };
-
     lastEditTime = Date.now();
-
-    if (historyPosition < history.length - 1) {
-        history.splice(historyPosition);
-    }
     if (history.length >= historyMaxSize) {
         var elementsToRemove = history.length - historyMaxSize + 1;
         history.splice(0, elementsToRemove);
-        historyPosition -= elementsToRemove;
     }
     history.push(lastEditLocation);
-    historyPosition++;
+    historyPosition = history.length - 1;
 }
 
 function scrollToLocation(editor, edit) {
@@ -49,24 +43,25 @@ function navigate(goingBack) {
         lastEditLocation = goingBack ? history[historyPosition - 1] : history[historyPosition + 1];
         if (lastEditLocation) {
             historyPosition = goingBack ? historyPosition - 1 : historyPosition + 1;
-
-            var lastEditEditorFound = vscode.workspace.textDocuments.find(function (item) {
-                return item.fileName === lastEditLocation.file;
-            });
-
-            if (lastEditEditorFound) {
-                vscode.window.showTextDocument(lastEditEditorFound)
-                    .then(function (editor) { scrollToLocation(editor, lastEditLocation); });
-            } else {
-                vscode.workspace.openTextDocument(lastEditLocation.file)
-                    .then(vscode.window.showTextDocument)
-                    .then(function (editor) { scrollToLocation(editor, lastEditLocation); });
-            }
-        } else if (!goingBack && historyPosition === history.length - 1) {
-            // the max historyPosition should be history.length
-            // so when user goes back it points to the last element and not the one before last
-            historyPosition++;
+        } else {
+            lastEditLocation = goingBack ? history[0] : history[history.length - 1];
         }
+        openOrShowLocation(lastEditLocation);
+        vscode.window.setStatusBarMessage(`Edit num. ${historyPosition + 1} of ${history.length}`, 1500);
+    }
+}
+
+function openOrShowLocation(location) {
+    var lastEditEditorFound = vscode.workspace.textDocuments.find(function (item) {
+        return item.fileName === location.file;
+    });
+    if (lastEditEditorFound) {
+        vscode.window.showTextDocument(lastEditEditorFound)
+            .then(function (editor) { scrollToLocation(editor, location); });
+    } else {
+        vscode.workspace.openTextDocument(location.file)
+            .then(vscode.window.showTextDocument)
+            .then(function (editor) { scrollToLocation(editor, location); });
     }
 }
 
