@@ -47,7 +47,7 @@ function navigate(goingBack) {
             lastEditLocation = goingBack ? history[0] : history[history.length - 1];
         }
         openOrShowLocation(lastEditLocation);
-        vscode.window.setStatusBarMessage(`Edit num. ${historyPosition + 1} of ${history.length}`, 1500);
+        vscode.window.setStatusBarMessage(`Edit ${historyPosition + 1} of ${history.length}`, 1500);
     }
 }
 
