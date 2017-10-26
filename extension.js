@@ -30,7 +30,7 @@ function saveChangePosition(event) {
         history.splice(0, elementsToRemove);
     }
     history.push(lastEditLocation);
-    historyPosition = history.length - 1;
+    historyPosition = history.length;
 }
 
 function scrollToLocation(editor, edit) {

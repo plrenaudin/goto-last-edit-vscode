@@ -1,3 +1,6 @@
+# 0.6.2
+Fix history position on append
+
 # 0.6.1
 Always append the edit location to the history regardless of the history browsing
 
