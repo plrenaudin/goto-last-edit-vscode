@@ -1,5 +1,6 @@
 # 0.4.0
 Always append the edit location to the history regardless of the history browsing
+
 Display a quick info message in status bar
 
 # 0.2.1
