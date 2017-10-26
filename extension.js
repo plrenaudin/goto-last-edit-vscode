@@ -9,10 +9,15 @@ var lastEditTime;
 function _onEvent(e) {
     var lastChangeTooRecent = Date.now() - lastEditTime < editGroupTimeThreshold;
     var isOnSameLine = lastEditLocation && getEventPosition(e).range.end.line === lastEditLocation.position.end.line;
-    var isGitRelatedChange = e.document.uri._scheme === "git"
-    if (!lastChangeTooRecent && !isOnSameLine && !isGitRelatedChange) {
+    if (!lastChangeTooRecent && !isOnSameLine && isValidEditFile(e)) {
         saveChangePosition(e);
     }
+}
+
+function isValidEditFile(e) {
+    var isGitRelatedChange = e.document.uri._scheme === "git";
+    var isOutpuTabChange = e.document.uri.scheme === "output";
+    return !isOutpuTabChange && !isGitRelatedChange;
 }
 
 function getEventPosition(event) {
