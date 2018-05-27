@@ -2,14 +2,29 @@
 
 This package keeps track of the edit locations and allows you to move back and forward between them.
 
-Move the cursor to the **last** edit position when you type `ctrl+-` (`cmd+-` for MacOS)
-
-Move the cursor to the **next** edit position when you type `ctrl+=` (`cmd+=` for MacOS)
+```js
+"keybindings": [
+  {
+    "command": "gotoLastEdit.goBack",
+    "key": "ctrl+-",
+    "mac": "cmd+-",
+    "when": "editorTextFocus"
+  },
+  {
+    "command": "gotoLastEdit.goForward",
+    "key": "ctrl+=",
+    "mac": "cmd+=",
+    "when": "editorTextFocus"
+  }
+]
+```
 
 # Source
+
 [Github](https://github.com/plrenaudin/goto-last-edit-vscode)
 
 # License
+
 MIT
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:

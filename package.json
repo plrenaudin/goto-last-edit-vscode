@@ -1,57 +1,55 @@
 {
-    "name": "gotolastedit",
-    "displayName": "Goto Last Edit",
-    "description": "Goes backward and forward in the last edited location history",
-    "version": "0.6.1",
-    "publisher": "plrenaudin",
-    "homepage": "https://github.com/plrenaudin/goto-last-edit-vscode/blob/master/README.md",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/plrenaudin/goto-last-edit-vscode"
-    },
-    "bugs": {
-        "url": "https://github.com/plrenaudin/goto-last-edit-vscode/issues"
-    },
-    "engines": {
-        "vscode": "^1.0.0"
-    },
-    "categories": [
-        "Other"
+  "name": "gotolastedit",
+  "displayName": "Goto Last Edit",
+  "description":
+    "Goes backward and forward in the last edited location history",
+  "version": "0.6.1",
+  "publisher": "plrenaudin",
+  "homepage":
+    "https://github.com/plrenaudin/goto-last-edit-vscode/blob/master/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plrenaudin/goto-last-edit-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/plrenaudin/goto-last-edit-vscode/issues"
+  },
+  "engines": {
+    "vscode": "^1.0.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["*"],
+  "main": "./extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "gotoLastEdit.goBack",
+        "title": "Go To Last Edited Location"
+      },
+      {
+        "command": "gotoLastEdit.goForward",
+        "title": "Go To Next Edited Location"
+      }
     ],
-    "activationEvents": [
-        "*"
-    ],
-    "main": "./extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "extension.goBack",
-                "title": "Go To Last Edited Location"
-            },
-            {
-                "command": "extension.goForward",
-                "title": "Go To Next Edited Location"
-            }
-        ],
-        "keybindings": [
-            {
-                "command": "extension.goBack",
-                "key": "ctrl+-",
-                "mac": "cmd+-",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "extension.goForward",
-                "key": "ctrl+=",
-                "mac": "cmd+=",
-                "when": "editorTextFocus"
-            }
-        ]
-    },
-    "scripts": {
-        "postinstall": "node ./node_modules/vscode/bin/install"
-    },
-    "devDependencies": {
-        "vscode": "^0.11.0"
-    }
+    "keybindings": [
+      {
+        "command": "gotoLastEdit.goBack",
+        "key": "ctrl+-",
+        "mac": "cmd+-",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "gotoLastEdit.goForward",
+        "key": "ctrl+=",
+        "mac": "cmd+=",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+    "vscode": "^0.11.0"
+  }
 }
